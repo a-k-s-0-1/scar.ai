@@ -73,9 +73,9 @@ export function HeroSection() {
                 gap: 12,
                 maxWidth: 680,
                 margin: "0 auto 20px",
-                background: "rgba(20, 20, 26, 0.85)",
-                border: "1px solid rgba(155, 113, 178, 0.35)",
-                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5), 0 0 24px rgba(155, 113, 178, 0.18)",
+                background: "var(--bg-card)",
+                border: "1px solid var(--accent-border)",
+                boxShadow: "0 10px 30px var(--shadow-card), 0 0 24px var(--accent-soft)",
               }}
             >
               <Search size={18} style={{ color: "var(--accent-ink)", flexShrink: 0 }} />
@@ -136,7 +136,7 @@ export function HeroSection() {
                   type="button"
                   onClick={() => handleSelectSample(prompt)}
                   style={{
-                    background: "rgba(255, 255, 255, 0.03)",
+                    background: "var(--bg-subtle)",
                     border: "1px solid var(--border)",
                     borderRadius: 9999,
                     padding: "5px 12px",
@@ -153,7 +153,7 @@ export function HeroSection() {
                   onMouseLeave={(e) => {
                     e.currentTarget.style.borderColor = "var(--border)";
                     e.currentTarget.style.color = "var(--text-secondary)";
-                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
+                    e.currentTarget.style.background = "var(--bg-subtle)";
                   }}
                 >
                   {prompt}
@@ -169,8 +169,8 @@ export function HeroSection() {
                 textAlign: "left",
                 maxWidth: 900,
                 margin: "0 auto",
-                border: "1px solid rgba(227, 208, 234, 0.16)",
-                background: "rgba(15, 15, 22, 0.75)",
+                border: "1px solid var(--border)",
+                background: "var(--bg-card)",
               }}
             >
               {/* Mock Header */}
@@ -198,7 +198,7 @@ export function HeroSection() {
                     }}
                     aria-hidden="true"
                   />
-                  <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "#e2e8f0" }}>
+                  <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)" }}>
                     Autonomous Session #4928 • Nanotech in Targeted Biotech Delivery
                   </span>
                 </div>
@@ -228,7 +228,7 @@ export function HeroSection() {
                     style={{
                       padding: "12px 14px",
                       borderRadius: 10,
-                      background: "rgba(255, 255, 255, 0.02)",
+                      background: "var(--bg-subtle)",
                       border: "1px solid var(--border)",
                     }}
                   >

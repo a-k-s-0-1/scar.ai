@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { useTheme } from "@/lib/preferences";
 
 function cn(...parts: Array<string | undefined | false>) {
   return parts.filter(Boolean).join(" ");
@@ -125,16 +126,21 @@ async function measureExactDashLength(svg: SVGSVGElement): Promise<number> {
  */
 function SvgPathDrawingTextAnimation({
   text,
-  fromColor = "#cda9e2",
-  toColor = "#9b71b2",
+  fromColor,
+  toColor,
   strokeWidth = 2,
   durationSec = 5.5,
-  loop = true,
+  loop = false,
   viewBoxWidth = 800,
   viewBoxHeight = 160,
   fontSize = 88,
   className,
 }: SvgPathDrawingTextAnimationProps) {
+  const { resolved } = useTheme();
+  const isDark = resolved === "dark";
+  const startGradient = fromColor ?? (isDark ? "#cda9e2" : "#8754a1");
+  const endGradient = toColor ?? (isDark ? "#9b71b2" : "#321630");
+
   const reactId = useId().replace(/:/g, "");
   const gradientId = `pathGradient-${reactId}`;
   const svgRef = useRef<SVGSVGElement>(null);
@@ -192,8 +198,8 @@ function SvgPathDrawingTextAnimation({
       last = now;
       offset -= unitsPerMs * dt;
       if (offset <= 0) {
+        el.style.strokeDashoffset = "0";
         if (!loop) {
-          el.style.strokeDashoffset = "0";
           return;
         }
         offset = dashLength;
@@ -229,8 +235,8 @@ function SvgPathDrawingTextAnimation({
       >
         <defs>
           <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={fromColor} />
-            <stop offset="100%" stopColor={toColor} />
+            <stop offset="0%" stopColor={startGradient} />
+            <stop offset="100%" stopColor={endGradient} />
           </linearGradient>
         </defs>
 
@@ -285,8 +291,8 @@ export default function PathDrawingPortfolioHero({
   brand,
   tagline = "Self-Correcting Agent for Autonomous Research",
   eyebrow = "AUTONOMOUS KNOWLEDGE FUSION",
-  fromColor = "#cda9e2",
-  toColor = "#9b71b2",
+  fromColor,
+  toColor,
   loop = false,
   durationSec = 4.5,
   children,
@@ -309,14 +315,14 @@ export default function PathDrawingPortfolioHero({
       data-path-drawing-hero
       className={cn(
         "relative flex min-h-screen w-full flex-col items-center justify-center",
-        "bg-transparent text-white",
+        "bg-transparent text-[var(--text-primary)]",
         className,
       )}
     >
       <div className="relative z-10 flex w-full max-w-6xl flex-col items-center px-6 pb-10 pt-20 text-center sm:px-10 sm:pb-12">
         {eyebrow ? (
           <motion.p
-            className="mb-6 text-[0.7rem] font-medium uppercase tracking-[0.35em] text-white/55 sm:mb-8 sm:text-xs"
+            className="mb-6 text-[0.7rem] font-medium uppercase tracking-[0.35em] text-[var(--text-muted)] sm:mb-8 sm:text-xs"
             initial={instant ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -348,7 +354,7 @@ export default function PathDrawingPortfolioHero({
 
         {tagline ? (
           <motion.p
-            className="mt-4 max-w-md text-sm leading-relaxed text-white/65 sm:mt-6 sm:text-base"
+            className="mt-4 max-w-md text-sm leading-relaxed text-[var(--text-secondary)] sm:mt-6 sm:text-base"
             initial={instant ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -365,7 +371,7 @@ export default function PathDrawingPortfolioHero({
       <motion.a
         href="#pipeline"
         aria-label="Scroll to pipeline"
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-white/40 transition-colors hover:text-white/70"
+        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
         initial={instant ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.1 }}
@@ -373,7 +379,7 @@ export default function PathDrawingPortfolioHero({
         <span className="text-[0.65rem] uppercase tracking-[0.28em]">Scroll</span>
         <span
           aria-hidden
-          className="path-drawing-scroll-cue block h-8 w-px origin-top bg-gradient-to-b from-white/55 to-transparent"
+          className="path-drawing-scroll-cue block h-8 w-px origin-top bg-gradient-to-b from-[var(--text-muted)] to-transparent"
         />
       </motion.a>
 
@@ -398,3 +404,4 @@ export default function PathDrawingPortfolioHero({
 }
 
 export { PathDrawingPortfolioHero };
+

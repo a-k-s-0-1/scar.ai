@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Menu, Sparkles, X } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 function GithubIcon({ size = 17 }: { size?: number }) {
   return (
@@ -185,6 +186,10 @@ export function LandingNavbar() {
             <GithubIcon size={17} />
           </a>
 
+          <div className="landing-nav-desktop" style={{ display: "flex", alignItems: "center" }}>
+            <ThemeToggle />
+          </div>
+
           <Link
             href="/app"
             className="btn-glow"
@@ -256,6 +261,10 @@ export function LandingNavbar() {
               </li>
             ))}
           </ul>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 12, borderTop: "1px solid var(--border)" }}>
+            <span style={{ fontSize: "0.82rem", color: "var(--text-muted)", fontWeight: 500 }}>Theme</span>
+            <ThemeToggle />
+          </div>
           <div style={{ paddingTop: 8, borderTop: "1px solid var(--border)" }}>
             <Link
               href="/app"

@@ -28,8 +28,11 @@ class GroqClient:
         system_prompt: str | None = None,
     ) -> str:
         """Call Groq chat completion endpoint."""
-        if not self.api_key:
-            raise ExternalAPIError("Groq", "GROQ_API_KEY is not configured.")
+        if not self.api_key or self.api_key.strip() in ("", "gsk_...") or "..." in self.api_key:
+            raise ExternalAPIError(
+                "Groq",
+                "GROQ_API_KEY is missing or contains template placeholder. Please set your API key in backend/.env (get a free key at https://console.groq.com).",
+            )
 
         messages: list[dict[str, str]] = []
         if system_prompt:

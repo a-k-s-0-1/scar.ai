@@ -34,10 +34,11 @@ class TavilyClient:
         Returns:
             List of dicts: [{"url": ..., "title": ..., "content": ..., "score": ..., "published_date": ...}]
         """
-        if not self.api_key:
-            logger.warning("TAVILY_API_KEY is not configured.")
+        if not self.api_key or self.api_key.strip() in ("", "tvly-...") or "..." in self.api_key:
+            logger.warning("TAVILY_API_KEY is not configured or contains placeholder.")
             raise ExternalAPIError(
-                "Tavily", "TAVILY_API_KEY is not configured in environment variables."
+                "Tavily",
+                "TAVILY_API_KEY is missing or contains template placeholder. Please set your API key in backend/.env (get a free key at https://app.tavily.com).",
             )
 
         payload = {

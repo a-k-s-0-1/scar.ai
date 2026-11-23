@@ -31,8 +31,11 @@ class GeminiClient:
         than an error: retrieval has a lexical path, and a memory write must never be
         the reason a research run dies.
         """
-        if not self.api_key:
-            raise ExternalAPIError("Gemini", "GEMINI_API_KEY is not configured.")
+        if not self.api_key or self.api_key.strip() in ("", "AIzaSy...") or "..." in self.api_key:
+            raise ExternalAPIError(
+                "Gemini",
+                "GEMINI_API_KEY is missing or contains template placeholder. Please set your API key in backend/.env (get a free key at https://aistudio.google.com).",
+            )
 
         target = model or settings.GEMINI_EMBEDDING_MODEL
         url = f"{self.BASE_URL}/{target}:embedContent?key={self.api_key}"
@@ -70,8 +73,11 @@ class GeminiClient:
         system_instruction: str | None = None,
     ) -> str:
         """Generate content using Gemini model via REST."""
-        if not self.api_key:
-            raise ExternalAPIError("Gemini", "GEMINI_API_KEY is not configured.")
+        if not self.api_key or self.api_key.strip() in ("", "AIzaSy...") or "..." in self.api_key:
+            raise ExternalAPIError(
+                "Gemini",
+                "GEMINI_API_KEY is missing or contains template placeholder. Please set your API key in backend/.env (get a free key at https://aistudio.google.com).",
+            )
 
         url = f"{self.BASE_URL}/{model}:generateContent?key={self.api_key}"
 

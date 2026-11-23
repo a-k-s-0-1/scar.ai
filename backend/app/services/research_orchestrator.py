@@ -68,17 +68,22 @@ class ResearchOrchestrator:
         start_time = time.time()
         logger.info(f"Starting research orchestrator for session: {self.session_id}")
 
-        async with async_session_maker() as db:
-            session_repo = SessionRepository(db)
-            session = await session_repo.get_by_id(self.session_id)
-            if not session:
-                logger.error(
-                    f"Cannot run research: Session {self.session_id} not found."
-                )
-                return
+        session = None
+        for _ in range(10):
+            async with async_session_maker() as db:
+                session_repo = SessionRepository(db)
+                session = await session_repo.get_by_id(self.session_id)
+                if session:
+                    await session_repo.update_status(self.session_id, status="running")
+                    await db.commit()
+                    break
+            await asyncio.sleep(0.1)
 
-            await session_repo.update_status(self.session_id, status="running")
-            await db.commit()
+        if not session:
+            logger.error(
+                f"Cannot run research: Session {self.session_id} not found."
+            )
+            return
 
         # Broadcast initialization
         await ws_manager.broadcast(

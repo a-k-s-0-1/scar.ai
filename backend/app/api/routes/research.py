@@ -72,6 +72,7 @@ async def start_research(
         min_sources_required=payload.min_sources_required,
         output_format=payload.output_format,
     )
+    await db.commit()
 
     # Launch background task
     launch_research_task(session.id)
@@ -176,6 +177,7 @@ async def stop_research_session(
         raise SessionNotFoundError(session_id)
 
     await SessionManager.stop_session(session_id, db)
+    await db.commit()
     await ws_manager.broadcast(session_id, {"type": "stopped", "by": "user"})
 
     return StopSessionResponse(

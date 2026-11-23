@@ -50,10 +50,10 @@ const COMPARISON_ROWS = [
 
 export function ComparisonMatrix() {
   return (
-    <section id="comparison" style={{ padding: "80px 0", borderTop: "1px solid var(--border)" }}>
+    <section id="comparison" style={{ padding: "clamp(48px, 8vw, 80px) 0", borderTop: "1px solid var(--border)" }}>
       <div className="landing-container">
         {/* Header */}
-        <div style={{ textAlign: "center", maxWidth: 720, margin: "0 auto 50px" }}>
+        <div style={{ textAlign: "center", maxWidth: 720, margin: "0 auto 40px" }}>
           <span className="landing-badge" style={{ marginBottom: 12 }}>
             Architectural Differentiation
           </span>
@@ -73,6 +73,19 @@ export function ComparisonMatrix() {
           </p>
         </div>
 
+        {/* Mobile Horizontal Scroll Cue */}
+        <div
+          style={{
+            fontSize: "0.72rem",
+            color: "var(--text-muted)",
+            textAlign: "right",
+            marginBottom: 8,
+            paddingRight: 4,
+          }}
+        >
+          <span>← Swipe horizontally to view full matrix →</span>
+        </div>
+
         {/* Table Container */}
         <div
           className="landing-card"
@@ -82,13 +95,19 @@ export function ComparisonMatrix() {
             background: "rgba(18, 18, 24, 0.8)",
           }}
         >
-          <div style={{ overflowX: "auto" }}>
+          <div
+            style={{
+              overflowX: "auto",
+              WebkitOverflowScrolling: "touch",
+              maxWidth: "100%",
+            }}
+          >
             <table
               style={{
                 width: "100%",
                 borderCollapse: "collapse",
                 textAlign: "left",
-                minWidth: 640,
+                minWidth: 620,
               }}
             >
               <thead>

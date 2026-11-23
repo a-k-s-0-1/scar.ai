@@ -141,7 +141,7 @@ export function PipelineVisualizer() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 125px), 1fr))",
             gap: 10,
             marginBottom: 32,
           }}
@@ -218,7 +218,7 @@ export function PipelineVisualizer() {
         <div
           className="landing-card"
           style={{
-            padding: "32px 36px",
+            padding: "clamp(20px, 4vw, 32px) clamp(16px, 4vw, 36px)",
             border: `1px solid ${activeStep.color}40`,
             background: "rgba(18, 18, 25, 0.9)",
             boxShadow: `0 16px 40px rgba(0,0,0,0.5), 0 0 30px ${activeStep.color}15`,
@@ -288,6 +288,7 @@ export function PipelineVisualizer() {
                 fontFamily: "var(--font-mono)",
                 fontSize: "0.85rem",
                 color: "#f472b6",
+                overflowX: "auto",
               }}
             >
               {activeStep.formula}
@@ -298,7 +299,7 @@ export function PipelineVisualizer() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))",
               gap: 20,
               paddingTop: 20,
               borderTop: "1px solid var(--border)",

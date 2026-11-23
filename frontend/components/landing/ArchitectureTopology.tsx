@@ -71,7 +71,7 @@ export function ArchitectureTopology() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
             gap: 20,
             marginBottom: 40,
           }}

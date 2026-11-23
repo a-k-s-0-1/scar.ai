@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="scarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9b71b2" />
+      <stop offset="100%" stop-color="#3a1c36" />
+    </linearGradient>
+    <linearGradient id="sparkleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbf1ff" />
+      <stop offset="100%" stop-color="#e3d0ea" />
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#scarGrad)" />
+  <path d="M16 6L18.2 12.8L25 15L18.2 17.2L16 24L13.8 17.2L7 15L13.8 12.8L16 6Z" fill="url(#sparkleGrad)" />
+  <circle cx="23" cy="8" r="1.5" fill="#fbf1ff" opacity="0.9" />
+  <circle cx="8" cy="22" r="1.2" fill="#cda9e2" opacity="0.8" />
+</svg>

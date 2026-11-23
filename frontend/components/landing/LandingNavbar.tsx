@@ -27,6 +27,18 @@ function GithubIcon({ size = 17 }: { size?: number }) {
 export function LandingNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Lock body scroll while mobile menu is open
+  React.useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
     { label: "Pipeline", href: "#pipeline" },
     { label: "Why SCAR", href: "#comparison" },
@@ -57,14 +69,17 @@ export function LandingNavbar() {
           height: 68,
         }}
       >
-        {/* Brand */}
+        {/* Brand - Clickable logo */}
         <Link
           href="/"
+          aria-label="SCAR — Self-Correcting Agent for Research Home"
+          title="SCAR Home"
           style={{
             display: "flex",
             alignItems: "center",
             gap: 10,
             textDecoration: "none",
+            cursor: "pointer",
           }}
         >
           <span
@@ -221,72 +236,143 @@ export function LandingNavbar() {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Backdrop & Drawer */}
       {mobileMenuOpen && (
-        <div
-          style={{
-            borderTop: "1px solid var(--border)",
-            background: "var(--bg-card)",
-            padding: "18px 24px 24px",
-            display: "flex",
-            flexDirection: "column",
-            gap: 16,
-          }}
-        >
-          <ul
+        <>
+          <div
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close menu"
             style={{
-              listStyle: "none",
-              margin: 0,
-              padding: 0,
+              position: "fixed",
+              top: 68,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: "rgba(0, 0, 0, 0.6)",
+              backdropFilter: "blur(4px)",
+              WebkitBackdropFilter: "blur(4px)",
+              zIndex: 40,
+            }}
+          />
+          <div
+            style={{
+              position: "relative",
+              zIndex: 50,
+              borderTop: "1px solid var(--border)",
+              background: "var(--bg-surface)",
+              padding: "20px 24px 28px",
               display: "flex",
               flexDirection: "column",
-              gap: 12,
+              gap: 16,
+              boxShadow: "0 20px 40px rgba(0, 0, 0, 0.4)",
+              maxHeight: "calc(100vh - 68px)",
+              overflowY: "auto",
             }}
           >
-            {navLinks.map((item) => (
-              <li key={item.label}>
-                <a
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  style={{
-                    display: "block",
-                    fontSize: "0.95rem",
-                    color: "var(--text-secondary)",
-                    textDecoration: "none",
-                    padding: "6px 0",
-                  }}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 12, borderTop: "1px solid var(--border)" }}>
-            <span style={{ fontSize: "0.82rem", color: "var(--text-muted)", fontWeight: 500 }}>Theme</span>
-            <ThemeToggle />
-          </div>
-          <div style={{ paddingTop: 8, borderTop: "1px solid var(--border)" }}>
-            <Link
-              href="/app"
-              onClick={() => setMobileMenuOpen(false)}
-              className="btn-glow"
+            <ul
+              style={{
+                listStyle: "none",
+                margin: 0,
+                padding: 0,
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
+              }}
+            >
+              {navLinks.map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      fontSize: "0.96rem",
+                      fontWeight: 600,
+                      color: "var(--text-primary)",
+                      textDecoration: "none",
+                      padding: "10px 12px",
+                      borderRadius: 8,
+                      background: "var(--bg-subtle)",
+                      transition: "background 0.15s ease",
+                    }}
+                  >
+                    <span>{item.label}</span>
+                    <ArrowRight size={14} style={{ color: "var(--text-muted)" }} aria-hidden="true" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
-                gap: 8,
-                padding: "11px",
-                width: "100%",
-                textDecoration: "none",
-                fontWeight: 600,
-                fontSize: "0.9rem",
+                justifyContent: "space-between",
+                paddingTop: 12,
+                borderTop: "1px solid var(--border)",
               }}
             >
-              <span>Launch Research Webapp</span>
-              <ArrowRight size={16} />
-            </Link>
+              <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)", fontWeight: 500 }}>
+                Theme Appearance
+              </span>
+              <ThemeToggle />
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "8px 0",
+              }}
+            >
+              <a
+                href="https://github.com/a-k-s-0-1/scar.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  fontSize: "0.85rem",
+                  color: "var(--text-secondary)",
+                  textDecoration: "none",
+                  fontWeight: 500,
+                }}
+              >
+                <GithubIcon size={16} />
+                <span>GitHub Source</span>
+              </a>
+              <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>v1.0.0</span>
+            </div>
+
+            <div style={{ paddingTop: 8, borderTop: "1px solid var(--border)" }}>
+              <Link
+                href="/app"
+                onClick={() => setMobileMenuOpen(false)}
+                className="btn-glow"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                  padding: "12px",
+                  width: "100%",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  fontSize: "0.92rem",
+                  borderRadius: 10,
+                }}
+              >
+                <span>Launch Research Console</span>
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );

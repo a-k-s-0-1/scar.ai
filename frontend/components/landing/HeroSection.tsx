@@ -67,51 +67,66 @@ export function HeroSection() {
             <div
               className="landing-card"
               style={{
-                padding: "8px 8px 8px 18px",
+                padding: "8px 12px",
                 display: "flex",
                 alignItems: "center",
-                gap: 12,
+                gap: 10,
                 maxWidth: 680,
+                width: "100%",
                 margin: "0 auto 20px",
                 background: "var(--bg-card)",
                 border: "1px solid var(--accent-border)",
                 boxShadow: "0 10px 30px var(--shadow-card), 0 0 24px var(--accent-soft)",
               }}
             >
-              <Search size={18} style={{ color: "var(--accent-ink)", flexShrink: 0 }} />
-              <form onSubmit={handleLaunch} style={{ flex: 1, display: "flex", alignItems: "center" }}>
+              <Search size={18} style={{ color: "var(--accent-ink)", flexShrink: 0 }} aria-hidden="true" />
+              <form
+                onSubmit={handleLaunch}
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  flexWrap: "wrap",
+                  minWidth: 0,
+                }}
+              >
                 <input
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Enter any scientific, technological, or market query..."
+                  aria-label="Research query"
                   suppressHydrationWarning
                   style={{
-                    width: "100%",
+                    flex: "1 1 180px",
+                    minWidth: 0,
                     background: "transparent",
                     border: "none",
                     outline: "none",
                     color: "var(--text-primary)",
                     fontSize: "0.95rem",
                     fontFamily: "inherit",
+                    padding: "6px 0",
                   }}
                 />
                 <button
                   type="submit"
                   className="btn-glow"
                   style={{
-                    padding: "10px 20px",
+                    padding: "10px 18px",
                     fontSize: "0.88rem",
                     fontWeight: 600,
                     whiteSpace: "nowrap",
-                    flexShrink: 0,
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     gap: 8,
+                    borderRadius: 10,
                   }}
                 >
                   <span>Run Research</span>
-                  <ArrowRight size={15} />
+                  <ArrowRight size={15} aria-hidden="true" />
                 </button>
               </form>
             </div>

@@ -20,14 +20,42 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "SCAR — Self-Correcting Agent for Research",
+  title: {
+    default: "SCAR — Self-Correcting Agent for Research",
+    template: "%s | SCAR",
+  },
   description:
-    "Autonomous AI research agent with iterative knowledge fusion, contradiction detection, and evidence-grounded reports.",
-  keywords: ["SCAR", "AI research", "knowledge graph", "autonomous agent", "IKF", "JEV"],
+    "Autonomous AI research agent with iterative knowledge fusion, empirical contradiction detection, dynamic multi-tier model routing, and evidence-grounded reports.",
+  keywords: [
+    "SCAR",
+    "AI research agent",
+    "knowledge graph",
+    "autonomous agent",
+    "Iterative Knowledge Fusion",
+    "IKF",
+    "Judgment Evaluation Vector",
+    "JEV",
+    "deep research",
+    "contradiction detection",
+  ],
+  authors: [{ name: "SCAR AI Team" }],
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
   openGraph: {
     title: "SCAR — Self-Correcting Agent for Research",
-    description: "Self-correcting AI research powered by multi-LLM reasoning",
+    description:
+      "Autonomous closed-loop research agent that discovers, extracts, cross-examines, and synthesizes verifiable evidence without hallucinations.",
     type: "website",
+    siteName: "SCAR Research",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SCAR — Self-Correcting Agent for Research",
+    description:
+      "Autonomous closed-loop research agent powered by Iterative Knowledge Fusion and multi-LLM reasoning.",
   },
 };
 
